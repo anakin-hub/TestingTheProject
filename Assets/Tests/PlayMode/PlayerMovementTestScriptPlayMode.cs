@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 using Moq;
 using System;
 
-public class NewTestScriptPlayMode
+public class PlayerMovementTestScriptPlayMode
 {
     // A Test behaves as an ordinary method
     /*
@@ -28,7 +28,7 @@ public class NewTestScriptPlayMode
     
     private PlayerMovement player;
     
-    
+    //inicializa o player movement para testes
     [UnitySetUp]
     public IEnumerator Setup() {
 
@@ -40,6 +40,7 @@ public class NewTestScriptPlayMode
         player = UnityEngine.Object.FindObjectOfType<PlayerMovement>();
     }
 
+    //verifica se o player existe
     [UnityTest]
     public IEnumerator TestaPlayerExiste()
     {
@@ -47,16 +48,13 @@ public class NewTestScriptPlayMode
         yield return null;
     }
 
+    //verifica se o player está pulando depois de começar
     [UnityTest]
     public IEnumerator PlayerComecaAPular()
     {
         yield return null;
 
-
-        // Simular a entrada de pulo
-
-        // Simular a entrada de pulo
-       
+        // Simular a entrada de pulo      
         player.StartJump();
 
         yield return null;
@@ -64,6 +62,7 @@ public class NewTestScriptPlayMode
         Assert.IsTrue(player.IsJumping);
     }
 
+    //verifica se o player está pulando enquando o pulo é atualizado
     [UnityTest]
     public IEnumerator PlayerEstaPulando()
     {
@@ -78,6 +77,8 @@ public class NewTestScriptPlayMode
         Assert.IsTrue(player.IsJumping);
     }
 
+
+    //verifica se o player terminou de pular
     [UnityTest]
     public IEnumerator PlayerTerminaPulo()
     {
@@ -93,6 +94,32 @@ public class NewTestScriptPlayMode
         player.EndJump();
 
         Assert.IsFalse(player.IsJumping);
+    }
+
+
+    //verifica se o player esá agachando
+    [UnityTest]
+    public IEnumerator PlayerAgacha() {
+
+        player.StartCrough();
+        yield return null;
+        Assert.IsTrue(player.IsCroughed);
+
+    }
+
+
+    //verifica se o player parou de agachar
+    [UnityTest]
+    public IEnumerator PlayerParaAgachar()
+    {
+
+        player.StartCrough();
+        yield return null;
+
+        player.EndCrough();
+        yield return null;
+        Assert.IsFalse(player.IsCroughed);
+
     }
 
 }

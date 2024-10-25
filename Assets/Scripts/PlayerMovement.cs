@@ -19,9 +19,12 @@ public class PlayerMovement : MonoBehaviour {
 	private bool isJumping = false;
 	private float jumpTimer;
 
+    private bool isCroughed = false;
+
     public bool IsGrounded => isGrounded;
     public bool IsJumping => isJumping;
     public float JumpTime => jumpTime;
+    public bool IsCroughed => isCroughed;
 
 	private void Start() {
 		rb = GetComponent<Rigidbody2D>();
@@ -147,10 +150,11 @@ public class PlayerMovement : MonoBehaviour {
         if (isGrounded )
         {
             GFX.localScale = new Vector3(GFX.localScale.x, crouchHeight, GFX.localScale.z);
-
+            isCroughed = true;
             if (isJumping)
             {
                 GFX.localScale = new Vector3(GFX.localScale.x, 1f, GFX.localScale.z);
+                isCroughed = false;
             }
             //Debug.Log("AGACHANDO");
 
@@ -159,6 +163,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void EndCrough() {
         GFX.localScale = new Vector3(GFX.localScale.x, 1f, GFX.localScale.z);
+        isCroughed = false;
         //Debug.Log("AGACHOU");
     }
 

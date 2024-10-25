@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class PlayerCollision : MonoBehaviour
 {
+
+    public bool Active => gameObject.activeSelf;
+
     private void Start()
     {
         GameManager.Instance.onPlay.AddListener(ActivatePlayer);
@@ -19,8 +22,17 @@ public class PlayerCollision : MonoBehaviour
     {
         if (collision.transform.tag == "Obstacle")
         {
-            gameObject.SetActive(false);
-            GameManager.Instance.GameOver();
+
+            SetGameOver();
+            //gameObject.SetActive(false);
+            //GameManager.Instance.GameOver();
         }
     }
+
+    public void SetGameOver() {
+        gameObject.SetActive(false);
+        GameManager.Instance.GameOver();
+
+    }
+
 }
