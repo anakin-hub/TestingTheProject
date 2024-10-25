@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
     public UnityEvent onPlay = new UnityEvent();
     public UnityEvent onGameOver = new UnityEvent();
 
+    public float CurrentScore => currentScore;
+
     private void Start()
     {
         string loadedData = SaveSystem.Load("save");
@@ -40,7 +42,8 @@ public class GameManager : MonoBehaviour
     {
         if (isPlaying)
         {
-            currentScore += Time.deltaTime;
+            SetScore();
+            //currentScore += Time.deltaTime;
         }
     }
 
@@ -75,4 +78,11 @@ public class GameManager : MonoBehaviour
     {
         return Mathf.RoundToInt(data.highscore).ToString();
     }
+
+    public void SetScore() {
+
+        currentScore += Time.deltaTime;
+    }
+
+
 }
