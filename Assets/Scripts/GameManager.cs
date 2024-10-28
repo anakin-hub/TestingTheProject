@@ -84,5 +84,15 @@ public class GameManager : MonoBehaviour
         currentScore += Time.deltaTime;
     }
 
+    public void SetScore(float score)
+    {
+
+        currentScore = score;
+    }
+
+    public void SetHighScore(float hs)
+    {
+        data.highscore = hs;
+    }
 
 }

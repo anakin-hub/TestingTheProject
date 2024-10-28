@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class SpawnerManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] obstaclePrefabs;
-    [SerializeField] private Transform obstacleParent;
+    [SerializeField] public GameObject[] obstaclePrefabs;
+    [SerializeField] public Transform obstacleParent;
     public float obstaclesSpawnTime = 2f;
     [Range(0, 1)] public float obstacleSpawnTimeFactor = .1f;
     public float obstacleSpeed = 1f;
     [Range(0, 1)] public float obstacleSpeedFactor = .2f;
 
-    private float _obstaclesSpawnTime;
-    private float _obstacleSpeed;
-    private float timeAlive;
+    public float _obstaclesSpawnTime;
+    public float _obstacleSpeed;
+    public float timeAlive;
 
-    private float timeUntilObstacleSpawn;
+    public float timeUntilObstacleSpawn;
 
     private void Start()
     {
@@ -46,7 +46,7 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    void ClearObstacles()
+    private void ClearObstacles()
     {
         foreach(Transform child in obstacleParent)
         {
@@ -54,14 +54,22 @@ public class SpawnerManager : MonoBehaviour
         }
     }
 
-    private void ResetParameters()
+    public void ClearObstaclesInEditMode()
+    {
+        for (int i = obstacleParent.childCount - 1; i >= 0; i--)
+        {
+            DestroyImmediate(obstacleParent.GetChild(i).gameObject);
+        }
+    }
+
+    public void ResetParameters()
     {
         timeAlive = 1f;
         _obstacleSpeed = obstacleSpeed;
         _obstaclesSpawnTime = obstaclesSpawnTime;
     }
 
-    private void CalculateParameters()
+    public void CalculateParameters()
     {
         _obstaclesSpawnTime = obstaclesSpawnTime / Mathf.Pow(timeAlive, obstacleSpawnTimeFactor);
         _obstacleSpeed = obstacleSpeed * Mathf.Pow(timeAlive, obstacleSpeedFactor);
